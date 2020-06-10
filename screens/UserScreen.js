@@ -135,13 +135,14 @@ export default class UserScreen extends React.Component{
     }
   }
 
-  ComponentDidMount(){
+  componentDidMount(){
     axios
       .get('http://localhost:5000/user/TheTest2020')
       .then((data)=> {
-        console.log(data, '/n', '/n');
-        this.setState({user: data})})
-        .catch((error)=>console.error(error))
+        let user = data.data
+        console.log(user);
+        this.setState({user: user})})
+      .catch((error)=>console.error(error))
   }
 
   optionButton({ icon, label, onPress, isLastOption }) {
@@ -162,19 +163,17 @@ export default class UserScreen extends React.Component{
   render(){
     return (
       <View style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View >
-        <Image style={styles.userHeader}
-          source={{uri: "https://cdn.pixabay.com/photo/2018/02/02/04/32/red-3124617_960_720.png", }}/>
+        {this.state.user ?
+        <View>
+          <Image style={styles.userHeader}
+            source={{uri: `${this.state.user.profileHeaderImage}`, }}/>
 
-
-        <Image style={styles.userImage}
-          source={{uri:"https://cdn.psychologytoday.com/sites/default/files/styles/image-article_inline_full/public/field_blog_entry_images/2018-09/shutterstock_648907024.jpg?itok=ji6Xj8tv"}} />
-        <View style={styles.userNameBar}>
-          <Text style={styles.userNameBarText}>Username</Text>
+          <Image style={styles.userImage}
+            source={{
+              uri:`${this.state.user.profileImage}`}} />
+          <View style={styles.userNameBar}>
+          <Text style={styles.userNameBarText}>{this.state.user.userName}</Text>
         </View>
-
-        </View>
-
 
         <View style={styles.userLinksContainer}>
           <Image
@@ -189,10 +188,10 @@ export default class UserScreen extends React.Component{
           <Image
             style={styles.workoutsPane}
             source={require('../assets/images/workoutsPane.jpg')}
-            onPress={() => WebBrowser.openBrowserAsync('https://reactnavigation.org')}
+            onPress={() => navigation.navigate('https://reactnavigation.org')}
           />
           <View style={styles.workoutsPaneTextPosition}>
-            <Text style={styles.workoutsPaneText}>WORKOUTS</Text>
+            <Text style={styles.workoutsPaneText}>WORKOUT</Text>
           </View>
 
           <Image
@@ -204,10 +203,13 @@ export default class UserScreen extends React.Component{
           </View>
 
           <View style={styles.userFeed}>
-
           </View>
-
         </View>
+        </View>
+
+      : <View>
+        <Text>Loading</Text>
+      </View>}
       </View>
     );
   }
