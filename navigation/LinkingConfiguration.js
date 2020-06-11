@@ -8,6 +8,7 @@ export default {
       screens: {
         Home: 'home',
         User: 'user',
+        UserAnalytics: 'user data',
       },
     },
   },
