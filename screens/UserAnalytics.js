@@ -5,12 +5,12 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
 
-import BarChart from '../dataViz/activityBarChart.js';
-
+import BCData from '../dataViz/dailyActivityBCData.js';
+import PieData from '../dataViz/pieChartData.js';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fafafa',
+    backgroundColor: '#f9f9f9',
   },
   userHeader:{
     marginTop: 35,
@@ -47,90 +47,38 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
-  friendsPane:{
-    flex: 1,
-    height: 130,
-    width: 184,
-    marginTop: 29,
-    marginRight: 17,
-    marginLeft: 17,
-    opacity: .8,
-  },
-  friendsPaneTextPosition:{
-    position: 'absolute',
-    top: 35,
-    left: 25,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-  },
-  friendsPaneText:{
-    fontFamily: 'proxima-nova-xbold',
-    fontSize: 22,
-    color: 'white',
-  },
-  workoutsPane:{
-    flex: 1,
-    height: 130,
-    width: 184,
-    marginTop: 29,
-    marginRight: 17,
-    opacity: .8,
-  },
-  workoutsPaneTextPosition:{
-    position: 'absolute',
-    top: 0,
-    left: 158,
-    right: 0,
-    bottom: 527,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  workoutsPaneText:{
-    fontFamily: 'proxima-nova-xbold',
-    fontSize: 22,
-    color: 'white',
-  },
-  performancePane:{
-    height: 244,
-    width: 385,
-    marginLeft: 14,
-    marginRight: 18,
-    marginTop: 18,
-    marginBottom: 18,
-    opacity: .9,
-  },
-  performancePaneTextPosition:{
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 225,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   performancePaneText:{
     fontFamily: 'proxima-nova-xbold',
     fontSize: 22,
     color: 'black',
+    position: 'absolute',
+    marginLeft: 92,
+    marginTop: 20,
+    alignItems: 'center',
+    textAlign: 'center',
   },
   barChart:{
-    height:300,
-    width:400,
-  },
-  userFeed:{
-    height: 190,
-    width: 386,
-    marginLeft: 14,
-    marginRight: 18,
-    opacity: .9,
-    borderStyle: 'solid',
-    borderColor: 'black',
-    borderWidth: 1,
+    marginTop: 120+35,
+    marginLeft: 70,
     backgroundColor: 'white',
+    marginBottom: 30,
+
   },
 
+  pieChart:{
+    marginTop: 140,
+    marginLeft: 70,
+  },
+  pieChartDesc:{
+    fontFamily: 'proxima-nova-xbold',
+    fontSize: 22,
+    color: 'black',
+    position: 'absolute',
+    marginLeft: 110,
+    marginTop: 280,
+    alignItems: 'center',
+    textAlign: 'center',
+  }
 });
 
 export default class UserScreen extends React.Component{
@@ -151,21 +99,6 @@ export default class UserScreen extends React.Component{
       .catch((error)=>console.error(error))
   }
 
-  optionButton({ icon, label, onPress, isLastOption }) {
-    return (
-      <RectButton style={[styles.option, isLastOption && styles.lastOption]} onPress={onPress}>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={styles.optionIconContainer}>
-            <Ionicons name={icon} size={22} color="rgba(0,0,0,0.35)" />
-          </View>
-          <View style={styles.optionTextContainer}>
-            <Text style={styles.optionText}>{label}</Text>
-          </View>
-        </View>
-      </RectButton>
-    );
-  }
-
   render(){
     return (
       <View style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -181,12 +114,17 @@ export default class UserScreen extends React.Component{
           <Text style={styles.userNameBarText}>{this.state.user.userName}</Text>
         </View>
 
-        <View style={styles.userLinksContainer}>
-          <View style={styles.performancePaneTextPosition}>
-            <BarChart style={styles.barChart}/>
-            <Text style={styles.performancePaneText}>PERFORMANCE</Text>
+          <View style={styles.userLinksContainer}>
+            <Text style={styles.performancePaneText}>CALORIES THIS WEEK</Text>
+            <View style={styles.barChart}>
+              <BCData />
+            </View>
+
+            <Text style={styles.pieChartDesc}>MUSCLE GROUPS</Text>
+            <View style={styles.pieChart}>
+              <PieData />
+            </View>
           </View>
-        </View>
         </View>
 
       : <View>

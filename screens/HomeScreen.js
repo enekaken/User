@@ -145,7 +145,7 @@ export default class HomeScreen extends React.Component {
        console.log(user)
        console.log(user.email)
      }
-     
+
    })
    const { currentUser } = firebase.auth()
    this.setState({ currentUser })
@@ -159,7 +159,7 @@ export default class HomeScreen extends React.Component {
     WebBrowser.openBrowserAsync(
       'https://docs.expo.io/versions/latest/get-started/create-a-new-app/#making-your-first-change'
     );
-   
+
   }
     handleemailinput(e){
       this.setState({
@@ -181,8 +181,17 @@ export default class HomeScreen extends React.Component {
         confirmpassword: e
       })
     }
+
+  // useEffect(() => {
+  //   const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
+  //   return subscriber;
+  // }, []);
+
+
+
+
 render(){
-  
+
   //if (this.initializing) return null;
   if (!this.state.user){
     if (this.state.view === 'login')
@@ -200,7 +209,7 @@ render(){
       }}
       onChangeText={text => this.handleemailinput(text)}
       placeholder = "Username"/>
-        
+
       <TextInput style={{
         height: 30,
         width: 100,
@@ -210,7 +219,7 @@ render(){
       onChangeText = {text => this.passwordinput(text)}
       secureTextEntry = {true}
       placeholder = "Password"/>
-     
+
       <View style={styles.fixToText}>
         <Text style={{ color: 'red' }}>{this.state.loginerror}</Text>
       <Button
@@ -230,7 +239,7 @@ render(){
       />
       <Button
       title = "Forgot Password"
-      onPress = {() => 
+      onPress = {() =>
         firebase
         .auth()
         .sendPasswordResetEmail(
@@ -304,7 +313,7 @@ return (
           this.setState({signupMessage: 'Email field cannot be blank'})
         }
         else {
-          
+
            firebase
           .auth()
           .createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -327,10 +336,9 @@ return (
           })
         }
       }
-          //
-        }
+     }
         />
-        
+
         <Button
         title = "Go Back"
         onPress = {() => this.setState({ view: "login"})}
@@ -340,7 +348,7 @@ return (
 )
 
   }
-  
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
