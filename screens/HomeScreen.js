@@ -143,6 +143,7 @@ export default class HomeScreen extends React.Component {
      if (user) {
        this.setState({user:user})
        console.log(user)
+       console.log(user.email)
      }
      
    })
@@ -307,10 +308,22 @@ return (
            firebase
           .auth()
           .createUserWithEmailAndPassword(this.state.email, this.state.password)
+          
           .catch(error =>{
             var errorCode = error.code;
             var errorMessage = error.message;
             this.setState({signupMessage : error.message})
+          })
+          .then (()=>{
+            firebase.auth().currentUser.updateProfile({
+              displayName: this.state.name,
+              photoURL: "https://example.com/jane-q-user/profile.jpg"
+            }).then(function() {
+              // Update successful.
+            }).catch(function(error) {
+              // An error happened.
+            });
+
           })
         }
       }
@@ -349,9 +362,10 @@ return (
           this.setState({user:null, view: "login"})
         })
         .catch(function(error) {
-            // An error happened
+          // An error happened
         })}/>
 
+      <Text>Hello {this.state.user.displayName}!!</Text>
 
           <Text style={styles.getStartedText}>Open up the code for this screen:</Text>
 
