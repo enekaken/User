@@ -343,7 +343,7 @@ return (
       title = "Logout"
       onPress = {()=> firebase.auth().signOut()
         .then(() => {
-          this.setState({user:null})
+          this.setState({user:null, view: "login"})
         })
         .catch(function(error) {
             // An error happened
