@@ -125,7 +125,7 @@ export default class HomeScreen extends React.Component {
     initializing : true,
     user: null,
     subscriber: "",
-    email: "",
+    email: null,
     password: "",
     view: 'login',
     signupMessage: "",
@@ -297,7 +297,10 @@ return (
           })
         }
         else if( this.state.name === null){
-          this.setState({signupMessage: 'Please enter name'})
+          this.setState({signupMessage: 'Name field cannot be blank'})
+        }
+        else if( this.state.email === null){
+          this.setState({signupMessage: 'Email field cannot be blank'})
         }
         else {
           
