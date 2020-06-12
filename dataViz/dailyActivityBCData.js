@@ -6,19 +6,19 @@ import BarChart from './activityBarChart';
 export default class BCData extends Component{
   render(){
     const data = [
-      {label: 'Mon', value: 500},
-      {label: 'Tue', value: 312},
-      {label: 'Wed', value: 0},
-      {label: 'Thu', value: 745},
-      {label: 'Fri', value: 689},
-      {label: 'Sat', value: 200},
-      {label: 'Sun', value: 62}
+      {label: 'Mon', calories: 500, minutes: 45},
+      {label: 'Tue', calories: 312, minutes: 30},
+      {label: 'Wed', calories: 0, minutes: 5},
+      {label: 'Thu', calories: 745, minutes: 30},
+      {label: 'Fri', calories: 689, minutes: 100},
+      {label: 'Sat', calories: 200, minutes: 60},
+      {label: 'Sun', calories: 62, minutes: 15}
     ]
   const total = (data) =>{
 
   let total = 0;
   for(let i = 0; i < data.length; i++){
-    total+= data[i].value;
+    total+= data[i].calories;
   }
   return total;
 };
@@ -26,7 +26,7 @@ export default class BCData extends Component{
 
     return (
       <View style={styles.container}>
-        <BarChart data={data} total={total(data)} round={10} unit="cals"/>
+        <BarChart data={data} total={total(data)} round={120} unit="cals"/>
       </View>
     )
   }

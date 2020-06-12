@@ -6,7 +6,7 @@ import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
 
 import BCData from '../dataViz/dailyActivityBCData.js';
-
+import PieData from '../dataViz/pieChartData.js';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -63,6 +63,21 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginBottom: 30,
 
+  },
+
+  pieChart:{
+    marginTop: 140,
+    marginLeft: 70,
+  },
+  pieChartDesc:{
+    fontFamily: 'proxima-nova-xbold',
+    fontSize: 22,
+    color: 'black',
+    position: 'absolute',
+    marginLeft: 110,
+    marginTop: 280,
+    alignItems: 'center',
+    textAlign: 'center',
   }
 });
 
@@ -103,6 +118,11 @@ export default class UserScreen extends React.Component{
             <Text style={styles.performancePaneText}>CALORIES THIS WEEK</Text>
             <View style={styles.barChart}>
               <BCData />
+            </View>
+
+            <Text style={styles.pieChartDesc}>MUSCLE GROUPS</Text>
+            <View style={styles.pieChart}>
+              <PieData />
             </View>
           </View>
         </View>
