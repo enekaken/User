@@ -121,6 +121,7 @@ export default class HomeScreen extends React.Component {
   constructor(props){
   super(props);
   this.state = {
+    name: null,
     initializing : true,
     user: null,
     subscriber: "",
@@ -219,23 +220,39 @@ render(){
       placeholder = "Password"/>
 
       <View style={styles.fixToText}>
-        <Text>{this.state.loginerror}</Text>
+        <Text style={{ color: 'red' }}>{this.state.loginerror}</Text>
       <Button
       title = "Login"
       onPress = {()=> firebase
         .auth()
         .signInWithEmailAndPassword(this.state.email, this.state.password)
-        .catch(function(error) {
+        .catch(error =>{
           var errorCode = error.code;
             var errorMessage = error.message;
-        //{() => this.setState({loginerror : errorMessage})}
-        console.log(error.message)
-      })}
+              this.setState({loginerror : error.message})
+            })}
       />
       <Button
       title = "Signup"
       onPress = { () => this.setState({ view: "signup"})}
       />
+      <Button
+      title = "Forgot Password"
+      onPress = {() =>
+        firebase
+        .auth()
+        .sendPasswordResetEmail(
+          this.state.email)
+          .then(() => {
+            this.setState({loginerror : 'password reset link sent'})
+            // Password reset email sent.
+          })
+          .catch(error =>{
+            var errorCode = error.code;
+              var errorMessage = error.message;
+                this.setState({loginerror : error.message})
+              })
+      }/>
       </View>
     </View>
       //</View>
@@ -278,19 +295,32 @@ return (
         secureTextEntry = {true}
         onChangeText={text => this.handleconfirmpassword(text)}
         placeholder = "confirm password"/>
-        <Text>{this.state.signupMessage}</Text>
+        <Text style={{ color: 'red' }}>{this.state.signupMessage}</Text>
         <View style={styles.fixToText}>
         <Button
         title = "Submit"
-        onPress = {() => firebase
+        onPress = { () => {
+
+          if (this.state.password != this.state.confirmpassword){
+            this.setState({signupMessage : 'Passwords do not match'
+          })
+        }
+        else if( this.state.name === null){
+          this.setState({signupMessage: 'Please enter name'})
+        }
+        else {
+
+           firebase
           .auth()
           .createUserWithEmailAndPassword(this.state.email, this.state.password)
           .catch(function(error) {
             var errorCode = error.code;
-              var errorMessage = error.message;
-          //{() => this.setState({signupMessage : error.message})}
-          console.log(error.message)
-        })}
+            var errorMessage = error.message;
+            this.setState({signupMessage : error.message})
+          })
+        }
+      }
+     }
         />
 
         <Button
@@ -316,13 +346,12 @@ return (
             style={styles.welcomeImage}
           />
         </View>
-
         <View style={styles.getStartedContainer}>
         <Button
       title = "Logout"
       onPress = {()=> firebase.auth().signOut()
-        .then(function() {
-            this.setState({user:null})
+        .then(() => {
+          this.setState({user:null})
         })
         .catch(function(error) {
             // An error happened
