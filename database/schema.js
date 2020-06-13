@@ -32,6 +32,9 @@ const userSchema = Schema({
   profileHeaderImage:{
     type: String
   },
+  workouts:{
+    type: Array
+  }
 });
 
 const Users = mongoose.model("users", userSchema);
