@@ -139,10 +139,10 @@ export default class HomeScreen extends React.Component {
   }
   componentDidMount(){
    firebase.auth().onAuthStateChanged(user => {
-     console.log("here", user)
+     //console.log("here", user)
      if (user) {
        this.setState({user:user})
-       console.log(user)
+       //console.log(user)
      }
 
    })
@@ -320,7 +320,7 @@ return (
           })
         }
       }
-     }
+   }
         />
 
         <Button

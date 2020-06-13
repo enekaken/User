@@ -6,7 +6,7 @@ import { RectButton, ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
 
 import BCData from '../dataViz/dailyActivityBCData.js';
-import PieData from '../dataViz/pieChartData.js';
+import PieChart from '../dataViz/pieChart2Render.js';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -122,7 +122,8 @@ export default class UserScreen extends React.Component{
 
             <Text style={styles.pieChartDesc}>MUSCLE GROUPS</Text>
             <View style={styles.pieChart}>
-              <PieData />
+              {/* UNCOMMENT FOR PIECHART <PieChart />*/}
+              <PieChart />
             </View>
           </View>
         </View>
