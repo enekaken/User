@@ -20,7 +20,7 @@ export default class BarChart extends PureComponent {
     const graphHeight = SVGHeight -2 * GRAPH_MARGIN;
     const graphWidth = SVGWidth -2 * GRAPH_MARGIN;
     const data = this.props.data;
-    console.log(data, 'data')
+    //console.log(data, 'data')
     const total = this.props.total;
 
     //X Scale Point

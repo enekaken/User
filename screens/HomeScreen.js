@@ -185,7 +185,6 @@ export default class HomeScreen extends React.Component {
      //console.log("here", user)
      if (user) {
        this.setState({userauth:user})
-       
      }
 
    })

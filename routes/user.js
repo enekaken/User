@@ -13,7 +13,7 @@ router.get('/:userName', (req,res) => {
   User
     .getUserData(req.params.userName)
     .then((data) => {
-      console.log(data)
+      //console.log(data)
       res.send(data)})
   // User.Users.find({}).then((data)=> {
   //   console.log(data);

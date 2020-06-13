@@ -9,6 +9,7 @@ export default {
         Home: 'home',
         User: 'user',
         UserAnalytics: 'user data',
+        FriendsScreen: 'Friends',
       },
     },
   },

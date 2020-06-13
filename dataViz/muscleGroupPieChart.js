@@ -2,17 +2,16 @@ import React, { Component } from 'react';
 import * as d3 from 'd3';
 import { Svg, G, Line, Piechart, Text, Path, } from 'react-native-svg';
 
-const Arc = ({ data, index, createArc, colors, format }) => (
+const Arc = ({ path, index, colors}) => (
   <G key={index} className="arc">
-    <Path className="arc" d={createArc(data)} fill={colors(index)} />
+    <Path className="arc" d={path} fill={colors} />
     <Text
-      transform={`translate(${createArc.centroid(data)})`}
       textAnchor="middle"
       alignmentBaseline="middle"
       fill="white"
       fontSize="10"
     >
-      {(data)}
+      Chest
     </Text>
   </G>
 );
@@ -22,33 +21,46 @@ const Arc = ({ data, index, createArc, colors, format }) => (
 const PieChart = props => {
   const createPie = d3
     .pie()
-    .value((d) => d.muscle)
+    .value((d) => d.workouts)
     .sort(function(a,b){
-      return a.muscle.localeCompare(b.muscle);
+      return a.workouts.localeCompare(b.workouts);
     });
 
-  const createArc = d3
-    .arc()
-    .innerRadius(props.innerRadius)
-    .outerRadius(props.outerRadius)
-    .startAngle(0)
-    .endAngle(.25* Math.PI)
-    .padAngle(.02)
-    .cornerRadius(3)
-    .padRadius(100);
-  const colors = d3.scaleOrdinal(d3.schemeCategory10);
+    let lastDegree = 0;
+
+    const arcArray = props.data.map((workoutInfo, i) => {
+      const arcWidth = workoutInfo.workouts * 30;
+
+      const arc = d3
+        .arc()
+        .startAngle(lastDegree)
+        .endAngle(lastDegree + arcWidth)
+        .innerRadius(props.innerRadius)
+        .outerRadius(props.outerRadius)
+        .padAngle(1)
+        .cornerRadius(3)
+        .padRadius(500);
+
+      lastDegree += arcWidth;
+      return arc();
+    });
+
+  const colors = ['red', 'blue', 'green', 'yellow'];
   const data = props.data;
+  console.log('ArcArray', arcArray);
+
+
+
 
   return (
     <Svg width={props.width} height={props.height}>
       <G transform={`translate(${props.outerRadius} ${props.outerRadius})`}>
-        {data.map((d, i) => (
+        {arcArray.map((path, i) => (
           <Arc
             key={i}
-            data={d.muscle}
+            path={path}
             index={i}
-            createArc={createArc}
-            colors={colors}
+            colors={colors[i]}
           />
         ))}
       </G>
