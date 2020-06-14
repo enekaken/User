@@ -1,12 +1,9 @@
 import * as WebBrowser from 'expo-web-browser';
 import * as React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View, TextInput, Button } from 'react-native';
+import { Image, Platform, StyleSheet, Text, View, Button } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as firebase from 'firebase';
 import axios from 'axios'
-import { ProgressCircle } from 'react-native-svg-charts';
-import { Card, Icon} from 'react-native-elements'
-
 
 
 const styles = StyleSheet.create({
@@ -152,6 +149,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'center',
   },
+  cardStyle:{
+    flex: 1,
+    justifyContent: "space-between",
+    backgroundColor: "#fff",
+    padding: 20,
+    margin: 10,
+  },
+  tinyLogo: {
+    width: 50,
+    height: 50,
+  },
 });
 
 
@@ -212,51 +220,40 @@ export default class HomeScreen extends React.Component {
   }
     
 render(){
-  const workoutcard = this.state.user.workouts.map(((workout, index ) => 
-  <Card key={index} title="Workout Name">
+  const workoutView = this.state.user.workouts.map(((workout, index ) => 
+  <View key={index} title="Workout Name" style={styles.cardStyle}>
   <Text>Workout Name</Text>
   <Text>{workout.date}</Text>
   <View style={{flex: 1, flexDirection: 'row',  justifyContent: 'space-around',}}>
   <View style={{flex: 1, flexDirection: 'row',  justifyContent: 'flex-start', alignItems: 'center'}}>
-      <Icon
-      raised
-      name='clock-o'
-      type='font-awesome'
-      color='#f50'
-      onPress={() => console.log('hello')} />
+  <Image
+      style={styles.tinyLogo}
+      source = {require('../assets/images/clock.png')}/>
     <Text>{workout.duration} min </Text>
       </View>
     <View style={{flex: 1, flexDirection: 'row',  justifyContent: 'flex-start', alignItems: 'center'}}>
-      <Icon
-      raised
-      name='fire'
-      type='font-awesome'
-      color='#f50'
-      onPress={() => console.log('hello')} />
+      <Image
+      style={styles.tinyLogo}
+      source = {require('../assets/images/fire.png')}/>
+        
     <Text>{workout.calories} calories </Text>
     </View>
   </View>
   <View style={{flex: 1, flexDirection: 'row',  justifyContent: 'space-around',}}>
     <View style={{flex: 1, flexDirection: 'row',  justifyContent: 'flex-start', alignItems: 'center'}}>
-      <Icon
-      raised
-      name='heartbeat'
-      type='font-awesome'
-      color='#f50'
-      onPress={() => console.log('hello')} />
+    <Image
+      style={styles.tinyLogo}
+      source = {require('../assets/images/heart.png')}/>
       <Text>{workout.BPM}  avg bpm </Text>
   </View>
   <View style={{flex: 1, flexDirection: 'row',  justifyContent: 'flex-start', alignItems: 'center'}}>
-      <Icon
-      raised
-      name='odnoklassniki-square'
-      type='font-awesome'
-      color='#f50'
-      onPress={() => console.log('hello')} />
+  <Image
+      style={styles.tinyLogo}
+      source = {require('../assets/images/workout.png')}/>
     <Text>{workout.group} </Text>
     </View>
   </View>
-</Card>))
+</View>))
 
 
   return (
@@ -292,29 +289,18 @@ render(){
             textAlign: 'center'}}
             > Your Weekly Progress
             </Text>
-            <View style={{flex: 1, flexDirection: 'row',  justifyContent: 'space-around',}}>
-        <View style={{width: 40, height: 75}}><ProgressCircle style={{ height: 100 }} progress={1} progressColor={'rgb(134, 65, 244)'} /></View>
-        <View style={{width: 40, height: 50}}><ProgressCircle style={{ height: 100 }} progress={.6} progressColor={'rgb(134, 65, 244)'} /></View>
-        <View style={{width: 40, height: 50}}><ProgressCircle style={{ height: 100 }} progress={0.4} progressColor={'rgb(134, 65, 244)'} /></View>
-        <View style={{width: 40, height: 50}}><ProgressCircle style={{ height: 100 }} progress={0.7} progressColor={'rgb(134, 65, 244)'} /></View>
-        <View style={{width: 40, height: 50}}><ProgressCircle style={{ height: 100 }} progress={0.25} progressColor={'rgb(134, 65, 244)'} /></View>
-        <View style={{width: 40, height: 50}}><ProgressCircle style={{ height: 100 }} progress={0.7} progressColor={'rgb(134, 65, 244)'} /></View>
-        <View style={{width: 40, height: 50}}><ProgressCircle style={{ height: 100 }} progress={.8} progressColor={'rgb(134, 65, 244)'} /></View>
+            <View style={{flex: 1, flexDirection: 'row',  justifyContent: 'space-around', backgroundColor: "#fff",}}>
+        <View style={{width: 40, height: 40}}><Image style={styles.tinyLogo} source = {require('../assets/images/starFull.png')}/></View>
+        <View style={{width: 40, height: 40}}><Image style={styles.tinyLogo} source = {require('../assets/images/starEmpty.png')}/></View>
+        <View style={{width: 40, height: 40}}><Image style={styles.tinyLogo} source = {require('../assets/images/starFull.png')}/></View>
+        <View style={{width: 40, height: 40}}><Image style={styles.tinyLogo} source = {require('../assets/images/starFull.png')}/></View>
+        <View style={{width: 40, height: 40}}><Image style={styles.tinyLogo} source = {require('../assets/images/starFull.png')}/></View>
+        <View style={{width: 40, height: 40}}><Image style={styles.tinyLogo} source = {require('../assets/images/starEmpty.png')}/></View>
+        <View style={{width: 40, height: 40}}><Image style={styles.tinyLogo} source = {require('../assets/images/starFull.png')}/></View>
       </View>
-          <Card title="Card Template">
-            <Text>Workout Name</Text>
-            <Text>date</Text>
-            <View style={{flex: 1, flexDirection: 'row',  justifyContent: 'space-around',}}>
-              <Text>duration </Text>
-              <Text>calories </Text>
-            </View>
-            <View style={{flex: 1, flexDirection: 'row',  justifyContent: 'space-around',}}>
-              <Text>BPM </Text>
-              <Text>muscle group </Text>
-            </View>
-        </Card>
+        
     
-        {workoutcard}
+        {workoutView}
       </View>
 
       <Button

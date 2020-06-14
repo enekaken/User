@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^10.2.0",
-    "@expo/vector-icons": "~10.0.6",
     "@react-native-community/art": "github:react-native-community/art",
     "@react-native-community/masked-view": "0.1.6",
     "@react-native-community/viewpager": "^4.0.1",
@@ -36,7 +35,6 @@
     "expo-web-browser": "~8.2.0",
     "express": "^4.17.1",
     "firebase": "7.9.0",
-
     "mongo": "^0.1.0",
     "mongodb": "^3.5.8",
     "mongoose": "^5.9.18",
